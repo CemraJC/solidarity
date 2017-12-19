@@ -6,12 +6,15 @@
 
 using namespace std;
 
+// Need arbitrarily large (can't be bothered - 2^64 is big enough)
+// Need optimized factoring library (too hard to compile!)
+
 // Adds commas into a string buffer (based on a number) and prints it
 void tocout(long long a)
 {
     long long c = 1;
 
-    if(a<0) {a*=-1;cout<<"-";}
+    if(a<0) {a*=-1;cout<<"-";} // Handle a negative
     while((c*=1000)<a);
     while(c>1)
     {
@@ -20,10 +23,6 @@ void tocout(long long a)
        cout << (((c/=1000)==1)?"":",");
     }
 }
-
-// Need arbitrarily large
-// Need optimized factoring library
-
 
 long long sigma_1(long long x) {
     // We will store sum of factors in `result`

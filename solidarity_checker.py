@@ -1,24 +1,23 @@
-END = 10000 # Try this many
+from math import sqrt
+from sympy import divisors, factorint
 
-def sigma_1(n): # Note that this DOESNT work for 1. Performance improvement.
-	# Make an accumulative sum of divisors of n.
-	result = 1 # Start at 1, because 1 divides every natural number
-	for k in range(2, n): # Doesn't include n itself!
-		if n % k == 0: # If k divides n, it's a divisor
-			result += k # So add to the sum
-	return result + n # Remembering that n is the largest divisor of n.
+START = 1891500000 
+END = START + 500000 # Try this many
+
+def sigma_1(n): # Sum of factors with parity check
+        return sum(list(divisors(n, generator=True)))
 
 def abundancy(n):
 	return sigma_1(n)/n
 
-def get_friendlies(n, END):
+def get_friendlies(n, START, END):
 	ab_n = abundancy(n) # Cache result
 	friendlies = []
 
 	print(ab_n)
 
-	for test in range(2, END):
-		if test % 100000 == 0: # Print progress
+	for test in range(START, END):
+		if test % 10000 == 0: # Print progress
 			print(test/END * 100, "%", sep="")
 		if (abundancy(test) == ab_n):
 			friendlies.append(test)
@@ -31,4 +30,4 @@ def get_friendlies(n, END):
 
 
 if __name__ == '__main__':
-	get_friendlies(10, END)
+	get_friendlies(10, START, END)
